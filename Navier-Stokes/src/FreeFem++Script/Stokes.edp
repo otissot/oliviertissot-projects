@@ -1,0 +1,42 @@
+//verbosity=10;
+border D1(t=0,2){x=t;y=0.5; label=1;}
+border D2(t=0,0.5){x=2;y=0.5-t; label=2;}
+border D3(t=2,10){x=t;y=0;label=3;}
+border D4(t=0,1){x=10;y=t; label=4;}
+border D5(t=0,10){x=10-t;y=1; label=5;}
+border D6(t=0,0.5){x=0;y=1-t; label=6;}
+
+int N=640;  
+
+mesh Domaine=buildmesh(D1(0.2*N)+D2(0.05*N)+D3(0.8*N)+D4(0.1*N)+D5(N)+D6(0.05*N));
+//plot(Domaine,wait=1,ps="../../Rapport/images/Maillage.ps");
+//savemesh(Domaine,"MaillageNS.msh");
+//Donnees 
+real nu=1./100;
+real dt=0.01;
+int M=20./dt;
+
+
+fespace Xh(Domaine,P2);
+fespace Mh(Domaine,P1);
+Xh u1,v1;
+Xh u2,v2;
+
+Mh p,q;
+u1=0.; u2=0.;
+
+solve NS(u1,u2,p,v1,v2,q)=
+int2d(Domaine)(nu*(dx(u1)*dx(v1)+dy(u1)*dy(v1)+dx(u2)*dx(v2)+dy(u2)*dy(v2)))
+-int2d(Domaine)(p*(dx(v1)+dy(v2)))
++int2d(Domaine)(q*(dx(u1)+dy(u2)))
+-int2d(Domaine)(p*q*0.000001)
++on(D1,u1=0,u2=0)+on(D2,u1=0,u2=0)+on(D3,u1=0,u2=0)+on(D5,u1=0,u2=0)+on(D6,u1=16*(1-y)*(y-0.5),u2=0);
+cout<<"Temps CPU = "<<clock()<<endl;
+
+//plot(p,cmm=" P avec viscosite "+nu,wait=1,value=1,fill=1,ps="PNS"+N+"Freefem.ps");	
+//plot(u1,cmm=" U1 avec viscosite "+nu,wait=1,value=1,fill=1,ps="U1NS"+N+"Freefem.ps");
+//plot(u2,cmm=" U2 avec viscosite "+nu,wait=1,value=1,fill=1,ps="U2NS"+N+"Freefem.ps");
+//plot([u1,u2],wait=1,value=1,fill=1,ps="ChampVitesseStokes.eps",coef=0.3,cmm=" Champ de vitesse avec viscosite "+nu);
+
+ofstream pof("../results/plotPFreefemNS"+N+".sol");
+pof << p[];

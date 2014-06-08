@@ -1,0 +1,1 @@
+extern void pspblasinfo( int* m, int* n, int* k, int* block_size, int* num_proc_row, int* num_proc_col, int* sys_param, int* i_am, int* num_procs, char folder[], const char * infile_name, char* outfile_name, char* usr_info, int* outfile_name_len, int* status );

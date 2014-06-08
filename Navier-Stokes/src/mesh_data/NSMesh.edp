@@ -1,0 +1,13 @@
+//verbosity=10;
+border D1(t=0,2){x=t;y=0.5; label=1;}
+border D2(t=0,0.5){x=2;y=0.5-t; label=2;}
+border D3(t=2,10){x=t;y=0;label=3;}
+border D4(t=0,1){x=10;y=t; label=4;}
+border D5(t=0,10){x=10-t;y=1; label=5;}
+border D6(t=0,0.5){x=0;y=1-t; label=6;}
+int M = 640;
+string filename = "NS" + M + ".msh";  
+
+mesh Domaine=buildmesh(D1(0.2*M)+D2(0.05*M)+D3(0.8*M)+D4(0.1*M)+D5(M)+D6(0.05*M));
+plot(Domaine,wait=1);
+savemesh(Domaine,filename);

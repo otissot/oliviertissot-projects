@@ -1,0 +1,9 @@
+Prototype Randomized Low-Rank Factorization, Example input file
+DOE ACTS ScaLAPACK Hands-on: http://acts.nersc.gov/scalapack/hands-on/
+results	file_name
+8	value of M -> row of A
+4	value of N -> low-rank
+4	value of K -> col of A
+2	values of NB -> block size
+2	values of NPROW -> nrow on processes grid
+2	values of NPCOL -> ncol on processes grid

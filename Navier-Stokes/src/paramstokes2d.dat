@@ -1,0 +1,10 @@
+Mesh
+mesh_data/NS160.msh
+dt
+0.1
+Tmax
+10
+TSnapShot
+1
+Viscosite
+.0025

@@ -1,0 +1,12 @@
+CC = mpicc
+F77 = mpif77
+CFLAGS = -O3 -Wall
+LDFLAGS = -O3
+PLAT = LINUX
+
+INCBLAS = -I./../include
+INCTOOLS = -I./../tools
+
+LIBSCALAPACK = -L/home/olivier/scalapack_1.0.2/lib -lscalapack
+LIBBLAS = -L/home/olivier/scalapack_1.0.2/lib -lrefblas
+LIBLAPACK = -L/home/olivier/scalapack_1.0.2/lib -ltmg -lreflapack
